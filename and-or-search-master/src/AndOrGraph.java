@@ -2,13 +2,13 @@ import java.util.*;
 
 public class AndOrGraph {
 
-	ArrayList<Node>	nodes = new ArrayList<Node>();		// AND/ORƒOƒ‰ƒt‚ð•\‚·“®“I”z—ñ
-	Node			current;							// Œ»Ý’–Ú‚µ‚Ä‚¢‚éƒm[ƒh
-	String			solution;							// ’Tõ‘ÎÛ‚ð•\‚·•Ï”
+	ArrayList<Node>	nodes = new ArrayList<Node>();		// AND/OR
+	Node			current;							// 
+	String			solution;							// 
 	
 	public void setRoot(String st){
 		if(!nodes.isEmpty()){
-			System.out.println("Œ»Ý‚ÌƒOƒ‰ƒt‚ðíœ‚µ‚Ü‚·");
+			System.out.println("Delete the current graph");
 			nodes.clear();
 		}
 		current = new Node(0, st, 0, 0);
@@ -19,18 +19,18 @@ public class AndOrGraph {
 		solution = st;
 	}
 	
-	// idx‚ÅŽw’è‚³‚ê‚½ƒm[ƒh‚ð”z—ñ‚©‚çíœ‚·‚é
+	// idx
 	public void deleteNode(int idx){
-		// eƒm[ƒh‚©‚ç‚ÌƒGƒbƒW‚ðíœ‚·‚é
+		// 
 		nodes.get(nodes.get(idx).getFrom()).removeTo(idx);
 		nodes.remove(idx);
 	}
 	
-	// ƒm[ƒh‚Ì’Tõó‘Ô‚ð’²‚×,‘ã“ü‚·‚éƒƒ\ƒbƒh
+	
 	public void setNodeState(Node nd){
 		if(nd.isUnknown()){
 			if(nd.isNodeLeaf()){
-				// Leaf‚Ísolution‚Æˆê’v‚µ‚½‚Æ‚«‚É‰ð‚©‚ê‚é
+				
 				if(nd.getStr().equals(solution)){
 					nd.setSolved();
 					System.out.println("\"" + solution +"\" is found");
@@ -39,7 +39,7 @@ public class AndOrGraph {
 				}
 			}else if(nd.isNodeAND()){
 				int i;
-				// ANDƒm[ƒh‚ÍŽqƒm[ƒh‚ª‚·‚×‚Ä‰ð‚©‚ê‚½‚Æ‚«‚É‰ð‚©‚ê‚é
+				
 				for(i=0; i<nd.getTo().size(); i++){
 					if(nodes.get(nd.getTo().get(i)).isUnsolved()){
 						nd.setUnsolved();
@@ -50,7 +50,7 @@ public class AndOrGraph {
 					nd.setSolved();
 			}else if(nd.isNodeOR()){
 				int i;
-				// ORƒm[ƒh‚ÍŽqƒm[ƒh‚Ì­‚È‚­‚Æ‚à1‚Â‚ª‰ð‚©‚ê‚½‚Æ‚«‚É‰ð‚©‚ê‚é
+				
 				for( i=0; i<nd.getTo().size(); i++){
 					if(nodes.get(nd.getTo().get(i)).isSolved()){
 						nd.setSolved();
@@ -63,7 +63,7 @@ public class AndOrGraph {
 		}
 	}
 	
-	// nodes‚Ìî•ñ‚ð‚·‚×‚Ä•\Ž¦‚·‚é
+	
 	public void printNodes(){
 		System.out.println("Print Nodes(current idx = " + current.getIdx() + ")");
 		for(int i=0; i<nodes.size(); i++){
@@ -72,15 +72,15 @@ public class AndOrGraph {
 		System.out.println("End");
 	}
 	
-	// ‰ðƒOƒ‰ƒt‚ð’Tõ‚·‚éƒƒ\ƒbƒh
+	
 	public void search(){
-		// ªƒm[ƒh‚ª‰ð‚©‚ê‚é‚Ü‚Åƒ‹[ƒv
+		
 		while(nodes.get(0).isUnknown()){
-			// currentƒm[ƒh‚ð“WŠJ‚·‚éƒ‹[ƒv
+			
 			while(current.isUnknown()){
 				try{
 					printNodes();
-					// Žqƒm[ƒh‚ð¶¬‚µ,‰ðƒOƒ‰ƒt‚É’Ç‰Á‚·‚é
+					
 					current = current.generateNextNode(nodes.size());
 					System.out.println("Generated node: ");
 					current.printStatus();
@@ -89,15 +89,15 @@ public class AndOrGraph {
 				}catch(RuntimeException e){
 					System.out.println("Error");
 				}
-				// ƒm[ƒh‚Ì’Tõó‘Ô‚ðXV‚·‚é
+				
 				setNodeState(current);
 			}
 			System.out.println("Return to parent node:" + current.getFrom());
-			// eƒm[ƒh‚Ö–ß‚è,’Tõó‘Ô‚ðXV‚·‚é
+			
 			current = nodes.get(current.getFrom());
 			setNodeState(current);
 			
-			// solved‚Æunsolved‚Å•Êˆ—‚ð‚·‚é‚½‚ß‚ÌƒR[ƒh
+			
 			/*
 			if(current.isSolved()){
 				current = nodes.get(current.getFrom());
@@ -111,22 +111,22 @@ public class AndOrGraph {
 			}
 			*/
 		}
-		System.out.println("’TõI—¹\n‰ðƒOƒ‰ƒt:");
+		System.out.println("End of search \ nSolution graph:");
 		printNodes();
 		
 		if(!nodes.isEmpty() && nodes.get(0).isSolved()){
-			System.out.println("’Tõ¬Œ÷\n‰ðƒOƒ‰ƒtnodes‚ð“¾‚ç‚ê‚½");
+			System.out.println("Successful search \ nSolution graph nodes obtained");
 		}else{
-			System.out.println("’TõŽ¸”s");
+			System.out.println("Exploration failed");
 		}		
 	}
 	
-	// ‰ðƒOƒ‰ƒt‚©‚ç•¶Žš—ñ‚ðŽæ“¾‚·‚éƒƒ\ƒbƒh
+	// è§£ã‚°ãƒ©ãƒ•ã‹ã‚‰æ–‡å­—åˆ—ã‚’å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
 	public String getSolution(){
 		String result = "";
 		
 		if(nodes.isEmpty() || !nodes.get(0).isSolved()){
-			System.out.println("‚±‚ÌƒOƒ‰ƒt‚Í‰ð‚©‚ê‚Ä‚¢‚È‚¢");
+			System.out.println("This graph is unsolved");
 			return result;
 		}
 		

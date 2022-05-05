@@ -5,7 +5,7 @@ public class AndOrSearch {
 		
 		AndOrGraph graph = new AndOrGraph();
 		
-		// ¶¬‹K‘¥‚ğİ’è
+		
 		String[] x = {"ab", "cY"};
 		String[] y = {"a", "c"};
 		String[] z = {"Yc"};
@@ -13,14 +13,14 @@ public class AndOrSearch {
 		Node.setRule("Y", y);
 		Node.setRule("Z", z);
 		
-		// ªƒm[ƒh‚ğİ’è
+		
 		graph.setRoot("XYZ");
-		// ’Tõ‚·‚é•¶š‚ğİ’è
+		
 		graph.setSolution("c");
 		
 		graph.search();
 		
-		System.out.println("“¾‚ç‚ê‚½•¶š—ñ:" + graph.getSolution());	
+		System.out.println("Obtained String:" + graph.getSolution());	
 	}
 
 }

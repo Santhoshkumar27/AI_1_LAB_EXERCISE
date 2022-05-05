@@ -1,21 +1,21 @@
 import java.util.*;
 
 public class Node {
-	// —ñ‹“q‚Åƒm[ƒh‚Ìí—Ş‚ğ•\‚·
+	
 	enum NodeType {ANDNODE, ORNODE, LEAF, DEFAULT};
 	enum NodeState {SOLVED, UNSOLVED, UNKNOWN};
 	
-	int					idx;							// ƒm[ƒh‚ğˆêˆÓ¯•Ê‚·‚éindex
-	String				str;							// ƒm[ƒh‚É‚¨‚¯‚é•¶š—ñ
-	int					next = 0;						// ANDƒm[ƒhFŸ‚É“WŠJ‚·‚é•¶š‚ğw‚·
-														// ORƒm[ƒh FŸ‚É“K—p‚·‚é¶¬‹K‘¥‚ğw‚·
-	int					from;							// eƒm[ƒh‚ğw‚·index
-	ArrayList<Integer>	to = new ArrayList<Integer>();	// qƒm[ƒh‚ğw‚·index‚Ì”z—ñ
-	NodeType			type;							// ƒm[ƒh‚Ìí—Ş‚ğ•\‚·—ñ‹“q
-	NodeState			state = NodeState.UNKNOWN;		// ƒm[ƒh‚Ì’Tõó‘Ô‚ğ•\‚·—ñ‹“q
-	int					depth = 0;						// ƒm[ƒh‚Ì[‚³(ƒOƒ‰ƒt‚Ìo—Í‚Ég—p)
+	int					idx;							
+	String				str;							
+	int					next = 0;						
+														
+	int					from;							
+	ArrayList<Integer>	to = new ArrayList<Integer>();	
+	NodeType			type;							
+	NodeState			state = NodeState.UNKNOWN;		
+	int					depth = 0;						
 	
-	// ¶¬‹K‘¥‚ğŠi”[‚·‚é˜A‘z”z—ñ
+	
 	static HashMap<String, String[]> rule = new HashMap<String, String[]>();
 	
 	public Node(int id){
@@ -36,12 +36,10 @@ public class Node {
 		depth = dp;
 	}
 	
-	///////////////////////////////////////////////////////////////////////////
-	///////////////  ˆÈ‰º‚Ìƒƒ\ƒbƒh‚ÍƒtƒB[ƒ‹ƒh‚Æ‚ÌƒCƒ“ƒ^ƒtƒF[ƒX  ////////////
-	///////////////////////////////////////////////////////////////////////////
+	
 
 	/*
-	// idx‚ÍŒ´‘¥“I‚ÉƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å‘ã“ü‚·‚é
+	
 	public void setIdx(int index){
 		idx = index;
 	}
@@ -91,7 +89,7 @@ public class Node {
 	}
 	
 	/*
-	// Œ´‘¥“I‚Étype‚ÍƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å‘ã“ü‚·‚é
+	
 	public void setType(NodeType nt){
 		type = nt;
 	}
@@ -129,7 +127,7 @@ public class Node {
 		return state == NodeState.UNKNOWN;
 	}
 	
-	// ¶¬‹K‘¥‚ğ’Ç‰Á‚·‚é
+	
 	public static void setRule(String key, String[] value){
 		rule.put(key, value);
 	}
@@ -138,24 +136,20 @@ public class Node {
 		return rule.get(input);
 	}
 	
-	//////////////////////////////////////////////////////////////////////////
-	///////////////  ƒtƒB[ƒ‹ƒh‚Ö‚ÌƒCƒ“ƒ^ƒtƒF[ƒX‚±‚±‚Ü‚Å  ///////////////////
-	//////////////////////////////////////////////////////////////////////////
 	
-	// ŠeƒtƒB[ƒ‹ƒh‚Ì’l‚ğo—Í‚·‚é
 	public void printStatus(){
 		for(int i=0; i<depth; i++)
 			System.out.print("\t");
 		
 		System.out.println(str + " idx:" + idx + " strlen:" + str.length() + 
 				" from:" + from + " to:" + to + " state:" + state);
-		/* ƒfƒoƒbƒO—p
+		/* ãƒ‡ãƒãƒƒã‚°ç”¨
 		System.out.println(str + " idx:" + idx + " strlen:" + str.length() + 
 				" next:" + next + " type:" + type + " from:" + from + " to:" + to + " state:" + state);
 		*/
 	}
 	
-	// ƒm[ƒh‚Ìí—Ş‚ğ”»’è‚µCtype‚ÖŠi”[‚·‚é
+	
 	public void decideNodeType(){
 		if(str.length() > 1){
 			type = NodeType.ANDNODE;
@@ -166,27 +160,27 @@ public class Node {
 		}
 	}
 	
-	// qƒm[ƒh‚ğ‚·‚×‚Ä“WŠJÏ‚İ‚©”»’è‚·‚é
+	
 	public boolean isNodeExpanded(){
 		if(isNodeAND()){
-			// ANDƒm[ƒh‚È‚ç•¶š—ñ‚Ì’·‚³‚Ænext‚Æ‚Ì”äŠr‚Å”»’è‚·‚é
+			// ANDãƒãƒ¼ãƒ‰ãªã‚‰æ–‡å­—åˆ—ã®é•·ã•ã¨nextã¨ã®æ¯”è¼ƒã§åˆ¤å®šã™ã‚‹
 			if(next >= str.length())
 				return true;
 			else
 				return false;
 		}else if(isNodeOR()){
-			// ORƒm[ƒh‚È‚ç¶¬‹K‘¥‚Ì”‚Ænext‚Æ‚Ì”äŠr‚Å”»’è‚·‚é
+			// ORãƒãƒ¼ãƒ‰ãªã‚‰ç”Ÿæˆè¦å‰‡ã®æ•°ã¨nextã¨ã®æ¯”è¼ƒã§åˆ¤å®šã™ã‚‹
 			if(next >= rule.get(str).length)
 				return true;
 			else
 				return false;
 		}else{
-			// Leaf‚Í“WŠJÏ‚İ‚Æ‚µ‚Äˆµ‚¤
+			// Leafã¯å±•é–‹æ¸ˆã¿ã¨ã—ã¦æ‰±ã†
 			return true;
 		}
 	}
 	
-	// qƒm[ƒh‚ğˆê‚Â“WŠJ‚µ‚Ä•Ô‚·
+	// å­ãƒãƒ¼ãƒ‰ã‚’ä¸€ã¤å±•é–‹ã—ã¦è¿”ã™
 	public Node generateNextNode(int id)
 	{
 		String st=null;
